@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import OrderValueChart from './charts/orderValueChart';
+
 function OrderValue() {
   const [orderValueData, setOrderValueData] = useState({});
 
@@ -13,7 +15,6 @@ function OrderValue() {
     const data = await response.json();
     setOrderValueData(data.data);
   };
-  console.log(orderValueData);
 
   function calculateAveragePercentage(values, total) {
     const average = (total / values.length) * 100;
@@ -21,31 +22,31 @@ function OrderValue() {
   }
   return (
     Object.keys(orderValueData).length > 0 && (
-      <div className='revenueCard'>
+      <div className='orderValueCard'>
         <div style={{ fontSize: '16px', fontWeight: 700, padding: '8px' }}>
           {'AVG Order Value'}
         </div>
         <div
           style={{
-            margin: '16px 8px 0px 8px',
+            padding: '0px 8px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ fontSize: '30px', fontWeight: 500 }}>
+            <div style={{ fontSize: '24px', fontWeight: 700 }}>
               {orderValueData?.total}
             </div>
             <div
               style={{
                 marginLeft: '8px',
-                width: 52,
+                width: 40,
                 borderRadius: '24px',
                 backgroundColor: '#10B981',
-                padding: '8px',
+                padding: '4px',
                 color: '#fff',
-                fontSize: '12px',
+                fontSize: '10px',
                 textAlign: 'center',
               }}
             >
@@ -84,6 +85,9 @@ function OrderValue() {
               Previous
             </span>
           </div>
+        </div>
+        <div style={{ height: '200px' }}>
+          <OrderValueChart values={orderValueData?.values} />
         </div>
       </div>
     )

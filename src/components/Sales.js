@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { AiFillCaretRight } from 'react-icons/ai';
+import LineChart from './charts/lineChart';
 const Sales = () => {
   const [salesData, setSalesData] = useState({});
 
@@ -26,6 +27,7 @@ const Sales = () => {
 
     return `${average}%`;
   }
+
   return (
     <div className='sales'>
       {Object.keys(salesData).length > 0 &&
@@ -48,7 +50,7 @@ const Sales = () => {
                       ? '#334155'
                       : '#818CF8'
                   }
-                  style={{ fontSize: '32px' }}
+                  style={{ fontSize: '24px' }}
                 />
                 <FiMoreHorizontal fontSize='large' />
               </div>
@@ -71,12 +73,12 @@ const Sales = () => {
                   padding: '8px',
                 }}
               >
-                <span style={{ fontSize: '30px', fontWeight: 700 }}>
+                <span style={{ fontSize: '24px', fontWeight: 700 }}>
                   {salesData[entity]?.currentWeekTotal}
                 </span>
                 <span
                   style={{
-                    width: 52,
+                    width: 36,
                     marginLeft: '16px',
                     borderRadius: '24px',
                     backgroundColor: averageSalePercentage(
@@ -85,7 +87,7 @@ const Sales = () => {
                     ).includes('-')
                       ? 'orange'
                       : '#10B981',
-                    padding: '8px',
+                    padding: '4px',
                     color: '#fff',
                     fontSize: '12px',
                     textAlign: 'center',
@@ -96,6 +98,12 @@ const Sales = () => {
                     salesData[entity]?.lastWeek
                   )}
                 </span>
+              </div>
+              <div style={{ height: '120px' }}>
+                <LineChart
+                  currentWeek={salesData[entity]?.currentWeek}
+                  lastWeek={salesData[entity]?.lastWeek}
+                />
               </div>
             </div>
           );

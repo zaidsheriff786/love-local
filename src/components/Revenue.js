@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import BarChart from './charts/barChart';
 function Revenue() {
   const [revenueData, setRevenueData] = useState({});
 
@@ -14,14 +14,14 @@ function Revenue() {
     const data = await response.json();
     setRevenueData(data.data);
   };
-  console.log(revenueData);
+
   return (
     Object.keys(revenueData).length > 0 && (
       <div className='revenueCard'>
         <div style={{ fontSize: '16px', fontWeight: 700, padding: '8px' }}>
           {'Direct Vs Indirect'}
         </div>
-        <div style={{ margin: '16px 8px 0px 8px', display: 'flex' }}>
+        <div style={{ padding: '0px 8px', display: 'flex' }}>
           <div
             style={{ display: 'flex', width: '200px', alignItems: 'center' }}
           >
@@ -34,7 +34,7 @@ function Revenue() {
               }}
             ></div>
             <span
-              style={{ marginLeft: '4px', fontSize: '30px' }}
+              style={{ marginLeft: '4px', fontSize: '24px', fontWeight: '700' }}
             >{`${revenueData?.totalRevenue?.direct}Cr`}</span>
             <span
               style={{ marginLeft: '16px', fontSize: '14px', color: '#64748B' }}
@@ -54,7 +54,7 @@ function Revenue() {
               }}
             ></div>
             <span
-              style={{ marginLeft: '4px', fontSize: '30px' }}
+              style={{ marginLeft: '4px', fontSize: '24px', fontWeight: '700' }}
             >{`${revenueData?.totalRevenue?.indirect}Cr`}</span>
             <span
               style={{ marginLeft: '16px', fontSize: '14px', color: '#64748B' }}
@@ -62,6 +62,9 @@ function Revenue() {
               Indirect
             </span>
           </div>
+        </div>
+        <div style={{ height: '200px' }}>
+          <BarChart revenue={revenueData?.revenue} />
         </div>
       </div>
     )
